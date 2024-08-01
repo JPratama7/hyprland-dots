@@ -27,22 +27,8 @@ else
   echo "$git_dir was created."
 fi
 
-# Check if Yay is installed
-if [ -n "$(command -v yay)" ]; then
-  echo "Yay (AUR Helper) is already installed."
-else
-  # Prompt the user to install Yay
-  read -p "Yay (AUR Helper) is required. Do you want to install Yay? (y/n): " install_yay
-  if [ "$install_yay" == "y" ]; then
-    sudo pacman -S --needed git base-devel
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-  else
-    echo "Yay is required for this script. Exiting."
-    exit 1
-  fi
-fi
+sudo echo "[jp7-arch]\nSigLevel = Never\nServer = https://github.com/JPratama7/arch-builder/releases/download/latest/" >> /etc/pacman.conf
+sudo pacman -Syuy
 
 if [ -d "$git_dir" ]; then
   echo "$git_dir exists."
@@ -64,10 +50,10 @@ needed_pacman_packages=(
 )
 
 needed_aur_packages=(
-  "aylurs-gtk-shell-git" "grimblast-git" "gtklock" "gtklock-userinfo-module" 
+  "aylurs-gtk-shell" "grimblast" "gtklock" "gtklock-userinfo-module" 
   "hyprpicker" "ttf-ubuntu-nerd" "ttf-ubuntu-mono-nerd"
-  "sway-audio-idle-inhibit-git" "swww-git" "pywal-16-colors" "xdg-desktop-portal-hyprland"
-  "wf-recorder" "wl-clip-persist-git" "wayshot-bin"
+  "sway-audio-idle-inhibit" "swww" "pywal-16-colors" "xdg-desktop-portal-hyprland"
+  "wf-recorder" "wl-clip-persist" "wayshot-bin"
 )
 
 # optional packages
